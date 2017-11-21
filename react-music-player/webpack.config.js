@@ -1,61 +1,88 @@
-'use strict';
+const path = require('path');
+const autoprefixer = require('autoprefixer');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack');
 
-var path = require('path');
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+var cssLoader = [
+  {
+    loader: 'css-loader'
+  }, {
+    loader: 'postcss-loader',
+    options: {
+      ident: 'postcss',
+      plugins: function () {
+        return [
+          autoprefixer({
+            browsers: [
+              '>1%',
+              'last 4 versions'
+            ]
+          })
+        ]
+      }
+    }
+  }
+];
+
+const scssLoader = cssLoader.concat([
+	{
+		loader: 'sass-loader',
+		options: {
+			outputStyle: 'expanded'
+		}
+	}
+]);
 
 module.exports = {
-    devtool: 'eval-source-map',
-    entry: [
-        'webpack-dev-server/client?http://localhost:3000',
-        'webpack/hot/only-dev-server',
-        'react-hot-loader/patch',
-        path.join(__dirname, 'app/final/index.js')
-    ],
-    output: {
-        path: path.join(__dirname, '/dist/'),
-        filename: '[name].js',
-        publicPath: '/'
-    },
-    plugins: [
-        new HtmlWebpackPlugin({
-          template: './app/index.tpl.html',
-          inject: 'body',
-          filename: './index.html'
-        }),
-        new webpack.optimize.OccurenceOrderPlugin(),
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin(),
-        new webpack.DefinePlugin({
-          'process.env.NODE_ENV': JSON.stringify('development')
+	entry: [
+		'webpack-dev-server/client?http://localhost:3000',
+		'webpack/hot/only-dev-server',
+		'react-hot-loader/patch',
+		path.resolve(__dirname, './app/index.js'),
+	],
+	output: {
+		path: path.resolve(__dirname, './dist'),
+		filename: 'app.js',
+		publicPath: '/'
+	},
+	// devServer: {
+	//   contentBase: path.join(__dirname, "dist"),
+	//   compress: true,
+	//   port: 3000
+	// },
+	module: {
+		rules: [
+			{
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: cssLoader
         })
-    ],
-    module: {
-        resolve:{
-            extensions:['','.js','.json']
-        },        
-        loaders: [
-            {
-              test: /\.js$/,
-              exclude: /node_modules/,
-              loader: "babel-loader",
-              query:
-                {
-                  presets:['react','es2015']
-                }
-            },
-            {
-                test: /\.json?$/,
-                loader: 'json'
-            },
-            {
-                test: /\.css$/,
-                loader: "style!css"
-            },
-            {
-                test: /\.less/,
-                loader: 'style-loader!css-loader!less-loader'
-            }
-        ]
-    }
+      },
+      {
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: scssLoader
+        })
+      },
+			{
+        test: /\.js$/,
+        use: [
+          {
+            loader: 'babel-loader?cacheDirectory=true'
+          }
+        ],
+        exclude: /node_modules/
+      }
+		]
+	},
+	plugins: [
+		new ExtractTextPlugin('app.css'),
+		// 开启全局的模块热替换（HMR）
+		new webpack.HotModuleReplacementPlugin(),
+		new webpack.DefinePlugin({
+			'process.env.NODE_ENV': JSON.stringify('development')
+		})
+	]
 };
