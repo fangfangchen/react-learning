@@ -3,73 +3,75 @@ import { Link } from 'react-router'
 import Progress from '../components/Progress';
 import $ from 'jquery';
 import jPlayer from '../../static/js/jquery.jplayer.min';
+import PubSub from 'pubsub-js';
 import './player.scss';
 
 let duration = 0;
-
-const REPEAT_TYPE = ['one', 'cycle', 'random'];
 const Page = React.createClass({
 	getInitialState() {
 		return {
 			progress: 0,
 			volume: 0,
-			leftTime: 1,
-			isPlay: true,
-			repeatType: REPEAT_TYPE[0]
+			leftTime: '',
+			isPlay: true
 		};
 	},
 
+	timeFormat(time) {
+		time = Math.floor(time);
+		let minutes = Math.floor(time / 60);
+		let seconds = Math.floor(time % 60);
+		seconds = seconds < 10 ? `0${seconds}` : seconds;
+		return `${minutes}:${seconds}`;
+	},
+
 	componentDidMount() {
-		$(this.player)
-			.jPlayer({
-				ready: function () {
-					$(this).jPlayer('setMedia', {
-						mp3: 'http://www.jplayer.org/audio/m4a/Miaow-07-Bubble.m4a'
-					}).jPlayer('pause');
-				},
-				vmode: 'window',
-				smoothPlayBar: true
-			})
+		$('#player')
 			.bind($.jPlayer.event.timeupdate, e => {
 				duration = e.jPlayer.status.duration;
 				this.setState({
 					progress: Math.round(e.jPlayer.status.currentPercentAbsolute),
-					volume: e.jPlayer.options.volume * 100
+					volume: e.jPlayer.options.volume * 100,
+					leftTime: this.timeFormat(duration * (1 - e.jPlayer.status.currentPercentAbsolute / 100))
 				});
 			});
 	},
 
 	componentWillUnmount() {
-		$(this.player).unbind($.jPlayer.event.timeupdate);
+		$('#player').unbind($.jPlayer.event.timeupdate);
 	},
 
 	play() {
-		$(this.player).jPlayer(this.state.isPlay ? 'pause' : 'play');
+		$('#player').jPlayer(this.state.isPlay ? 'pause' : 'play');
 		this.setState({
 			isPlay: !this.state.isPlay
 		});
 	},
 
 	prev() {
-
-	},
-
-	next() {
-
-	},
-
-	changeRepeat() {
+		PubSub.publish('PLAY_PREV');
 		this.setState({
-			repeatType: REPEAT_TYPE[1]
+			isPlay: true
 		});
 	},
 
+	next() {
+		PubSub.publish('PLAY_NEXT');
+		this.setState({
+			isPlay: true
+		});
+	},
+
+	changeRepeatType() {
+		PubSub.publish('REPEAT_TYPE');
+	},
+
 	handleProgressChange(progress) {
-		$(this.player).jPlayer('play', duration * progress);
+		$('#player').jPlayer('play', duration * progress);
 	},
 
 	handleVolumeChange(volume) {
-		$(this.player).jPlayer('volume', volume);
+		$('#player').jPlayer('volume', volume);
 	},
 
 	// 子组件与父组件通信
@@ -102,7 +104,6 @@ const Page = React.createClass({
 								onProgressChange={this.handleProgressChange}
 								bgColor="#f00"
 							 />
-							<div ref={player => this.player = player}></div>
         		</div>
         		<div className="mt35 row">
         			<div>
@@ -111,7 +112,7 @@ const Page = React.createClass({
           			<i className="icon next ml20" onClick={this.next}></i>
         			</div>
         			<div className="-col-auto">
-        				<i className={`icon repeat-${this.state.repeatType}`} onClick={this.changeRepeat}></i>
+        				<i className={`icon repeat-${this.props.repeatType}`} onClick={this.changeRepeatType}></i>
         			</div>
         		</div>
         	</div>
