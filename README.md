@@ -9,4 +9,4 @@
 
 - 2.react-music-player
 
-来源和参考: [慕课网](http://www.imooc.com/learn/868)
+参考来源: [慕课网](http://www.imooc.com/learn/868)
