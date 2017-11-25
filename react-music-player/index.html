@@ -2,10 +2,35 @@
 <html>
 <head>
 	<title>First webpack react project</title>
-	<link rel="stylesheet" type="text/css" href="app.css">
+		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="turbolinks-cache-control" content="no-cache">
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="cache-control" content="no-cache,no-store,must-revalidate"/>
+    <meta name="format-detection" content="telephone=no,date=no,address=no,email=no">
+    <script type="text/javascript">
+      window.addEventListener('resize', resetFontSize);
+      resetFontSize();
+      function resetFontSize() {
+        var winWidth = window.innerWidth;
+        var winWidthTmp = window.screen.width;
+        if (!winWidth || winWidth > winWidthTmp) {
+          winWidth = winWidthTmp;
+        }
+        if (winWidth > 750) {
+          winWidth = 750;
+        }
+
+        document.documentElement.style.fontSize = parseInt(winWidth / 375 * 100, 10) + 'px';
+      }
+    </script>
+  <link rel="stylesheet" type="text/css" href="app.css">
 </head>
 <body>
-	<div id="root"></div>
-	<script src="app.js"></script>
+  <div id="root"></div>
+  <script src="app.js"></script>
 </body>
 </html>

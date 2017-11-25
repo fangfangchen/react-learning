@@ -36,7 +36,7 @@ const scssLoader = cssLoader.concat([
 module.exports = {
 	entry: [
 		'webpack-dev-server/client?http://localhost:3000',
-		'webpack/hot/only-dev-server',
+		'webpack/hot/dev-server',
 		'react-hot-loader/patch',
 		path.resolve(__dirname, './app/index.js'),
 	],
@@ -45,11 +45,11 @@ module.exports = {
 		filename: 'app.js',
 		publicPath: '/'
 	},
-	// devServer: {
-	//   contentBase: path.join(__dirname, "dist"),
-	//   compress: true,
-	//   port: 3000
-	// },
+	devServer: {
+	  contentBase: path.join(__dirname, "dist"),
+	  compress: true,
+	  port: 3000
+	},
 	module: {
 		rules: [
 			{
@@ -65,6 +65,12 @@ module.exports = {
           fallback: 'style-loader',
           use: scssLoader
         })
+      },
+      {
+        test: /\.(png|svg|gif|jpg|jpe?g|icon?)$/,
+        use: [{
+          loader: 'url-loader?limit=8192&name=[name]-[hash].[ext]'
+        }]
       },
 			{
         test: /\.js$/,

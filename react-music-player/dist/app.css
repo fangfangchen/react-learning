@@ -1,7 +1,4 @@
-body {
-  background-color: #e5e5e5;
-}
-
-body #root {
-  font-size: 28px;
+.hello-component {
+  font-size: 20px;
+  color: #f02;
 }
