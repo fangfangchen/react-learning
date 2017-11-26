@@ -108,7 +108,6 @@ const App = React.createClass({
 		PubSub.unsubscribe('PLAY_PREV');
 		PubSub.unsubscribe('PLAY_NEXT');
 		PubSub.unsubscribe('REPEAT_TYPE');
-		PubSub.unsubscribe('REPEAT_TYPE');
 		$('player').bind($.jPlayer.event.ended);
 	},
 
