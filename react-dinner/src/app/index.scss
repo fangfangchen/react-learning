@@ -1,0 +1,10 @@
+@import "~sass-rem";
+@import "~normalize.css";
+
+$rem-baseline: 10px;
+
+:global {
+	html, body, #root {
+		height: 100%;
+	}	
+}
