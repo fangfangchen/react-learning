@@ -1,4 +1,13 @@
+$baseColor: #ff74b9;
+
 @mixin line-height($param) {
   height: $param;
   line-height: $param;
+}
+
+/* 适配iPhone X */
+@mixin isIPhonex() {
+  @media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) {
+
+  }
 }

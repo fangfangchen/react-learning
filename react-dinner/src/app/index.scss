@@ -1,10 +1,10 @@
+$rem-baseline: 100px;
+
 @import "~normalize.css";
 @import "~sass-rem";
 @import './common/_variable.scss';
 @import "./common/iphonex.scss";
 @import './common/_button.scss';
-
-$rem-baseline: 100px;
 
 :global {
   *,

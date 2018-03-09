@@ -29,3 +29,9 @@ Error: No loader specified`
     outputStyle: 'expanded'
   }
 });`
+
+
+4.如何sass-rem全局化
+
+依赖`sass-rem`基于`sass`实现的，所以只要在需要的地方引入。不过有个缺点是：`$rem-baseline: 10px;`也是要在引入`sass-rem`时定义，以后变更时需要每个地方修改下。
+
