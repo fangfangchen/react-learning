@@ -6,15 +6,17 @@
 	<title>Dinner Demo</title>
 
   <script>
-    window.addEventListener('resize', onResizeFontSize);
-    function onResizeFontSize () {
-      document.documentElement.style.fontSize = parseInt(document.documentElement.clientWidth / 375 * 100, 10) + 'px';
-    }
-    onResizeFontSize();
+    window.addEventListener('resize', onResize);
+    function onResize () {
+      var doc = document.documentElement;
+      doc.style.fontSize = parseInt(doc.clientWidth / 375 * 100, 10) + 'px';
 
-    if (/iphone/gi.test(navigator.userAgent.toLowerCase()) && (screen.height == 812 && screen.width == 375)) {
-      document.documentElement.classList.add('iphonex');
+      if (/iphone/gi.test(navigator.userAgent.toLowerCase()) && (screen.height == 812 && screen.width == 375)) {
+        doc.classList.add('iphonex');
+      }
     }
+    onResize();
+
   </script>
 </head>
 <body>
