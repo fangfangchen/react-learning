@@ -1,65 +1,17 @@
 var webpack = require('webpack');
-
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const merge = require('webpack-merge');
+const base = require('./base');
 
-const cssLoader = [
-	{
-		loader: 'css-loader',
-		options: {
-			modules: true,
-			camelCase: true
-		}
-	}
-];
-
-const scssLoader = cssLoader.concat({
-  options: {
-    // like handwriting style, other options are compact,nested and compressed
-    outputStyle: 'expanded'
-  }
-});
-
-module.exports = {
-	entry: path.resolve(__dirname, '../src/app/index.js'),
-  output: {
-    publicPath: '/dist',
-    filename: './app.js'
-  },
-  module: {
-		rules: [
-			{
-				test: /\.jsx?$/,
-				exclude: /node_modules/,
-				use: [
-					{
-						loader: 'babel-loader',
-						options: {
-							presets: ['es2015', 'stage-0', 'react']
-						}
-					}
-				]
-			},
-			{
-				test: /\.css$/,
-				use: ExtractTextPlugin.extract({
-					fallback: 'style-loader',
-					use: cssLoader
-				})
-			},
-			{
-				test: /\.scss$/,
-				use: ExtractTextPlugin.extract({
-					fallback: 'style-loader',
-					use: scssLoader
-				})
-			}
-		]
-	},
+module.exports = merge(base, {
+  devtool: 'source-map',
 	plugins: [
-		new ExtractTextPlugin('[name].css'),
-		new webpack.optimize.UglifyJsPlugin({
-      compress: { warnings: false }
+		new UglifyJSPlugin({
+      sourceMap: true
+    }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production')
     })
 	]
-};
+});
