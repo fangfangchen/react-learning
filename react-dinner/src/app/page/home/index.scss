@@ -1,0 +1,67 @@
+@import "~sass-rem";
+$rem-baseline: 100px;
+
+@svg hair-line {
+  @rect {
+    fill: var(--color, #ddd);
+    width: 100%;
+    height: 50%;
+  }
+}
+
+@svg 1px-border {
+  @rect {
+    fill: var(--color, #ddd);
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.hairline-bottom {
+  border-bottom: 1px solid transparent;
+  border-image: svg(hair-line param(--color #eee)) 1 1 stretch;
+}
+
+.home-wrapper {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-top: rem(30px);
+
+  .menu {
+    flex: 1;
+    margin: rem(20px) rem(15px);
+    padding: rem(15px);
+    height: rem(350px);
+    overflow-y: scroll;
+    border: 1px solid #eee;
+    border-image: svg(1px-border) 1 1 stretch;
+    border-radius: rem(6px); /* 无效 */
+
+    ul {
+      li {
+        position: relative;
+        height: rem(44px);
+        line-height: rem(44px);
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+
+        &:after {
+          content: '';
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          height: 1px;
+          background: svg(hair-line param(--color #ddd));
+        }
+
+        .menu-info {
+          display: flex;
+        }
+      }
+    }
+  }
+}

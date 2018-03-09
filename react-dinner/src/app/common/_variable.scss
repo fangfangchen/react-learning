@@ -1,0 +1,4 @@
+@mixin line-height($param) {
+  height: $param;
+  line-height: $param;
+}

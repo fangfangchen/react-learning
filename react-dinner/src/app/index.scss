@@ -1,10 +1,47 @@
-@import "~sass-rem";
 @import "~normalize.css";
+@import "~sass-rem";
+@import './common/_variable.scss';
+@import "./common/iphonex.scss";
+@import './common/_button.scss';
 
-$rem-baseline: 10px;
+$rem-baseline: 100px;
 
 :global {
+  *,
+  *:before,
+  *:after {
+    box-sizing: inherit;
+  }
+
 	html, body, #root {
 		height: 100%;
-	}	
+    font-size: 10px;
+    box-sizing: border-box;
+	}
+
+  input {
+    width: 100%;
+    height: rem(44px);
+    line-height: rem(24px);
+    border: 1px solid #e5e5e5;
+    border-radius: rem(4px);
+    font-size: 14px;
+    padding: rem(8px);
+    appearance: none;
+  }
+
+  button {
+    height: rem(44px);
+    border: 1px solid #e5e5e5;
+    padding: rem(6px) rem(12px);
+    background-color: transparent;
+    border-radius: rem(6px);
+    font-size: 14px;
+  }
+
+  ul, li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
 }
