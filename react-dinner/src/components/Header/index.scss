@@ -1,0 +1,8 @@
+@import "~sass-rem";
+$rem-baseline: 100px;
+
+.header {
+  text-align: center;
+	font-size: 24px;
+  padding-top: rem(20px);
+}

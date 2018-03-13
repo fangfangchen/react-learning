@@ -1,0 +1,19 @@
+@import "~sass-rem";
+$rem-baseline: 100px;
+
+.user-wrapper {
+  text-align: center;
+
+  .main {
+    margin: rem(20px) rem(15px);
+
+    .order {
+      margin-top: rem(20px);
+      font-size: 20px;
+    }
+
+    .take-time {
+      font-size: 14px;
+    }
+  }
+}

@@ -1,0 +1,28 @@
+@import "~sass-rem";
+$rem-baseline: 100px;
+
+:global {
+  .btn {
+
+  }
+
+  .btn-default {
+
+  }
+
+  .btn-primary {
+    background-color: $baseColor;
+    color: #fff;
+    border: none;
+  }
+
+  .btn-sm {
+    height: rem(32px);
+  }
+
+  .btn-link {
+    border: none;
+    text-decoration: underline;
+    color: #4285f4;
+  }
+}

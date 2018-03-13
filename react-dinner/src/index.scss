@@ -2,9 +2,17 @@ $rem-baseline: 100px;
 
 @import "~normalize.css";
 @import "~sass-rem";
-@import './common/_variable.scss';
-@import "./common/iphonex.scss";
-@import './common/_button.scss';
+@import './common/scss/_variable.scss';
+@import "./common/scss/iphonex.scss";
+@import './common/scss/_button.scss';
+
+@svg 1px-border {
+  @rect {
+    fill: var(--color, #ddd);
+    width: 100%;
+    height: 100%;
+  }
+}
 
 :global {
   *,
@@ -43,5 +51,23 @@ $rem-baseline: 100px;
     list-style: none;
     margin: 0;
     padding: 0;
+  }
+
+  a {
+    color: #323232;
+    text-decoration: none;
+  }
+
+  .one-pixel-border {
+    border: 1px solid #eee;
+    border-image: svg(1px-border) 1 1 stretch;
+  }
+
+  .gray {
+    color: #808080;
+  }
+
+  .light-gray {
+    color: #d3d3d3;
   }
 }
