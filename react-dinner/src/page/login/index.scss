@@ -10,7 +10,7 @@ $rem-baseline: 100px;
 	.main {
     width: rem(250px);
     flex: 1;
-    margin: 0 auto;
+    margin: rem(30px) auto 0;
 
     .row {
       margin-bottom: rem(15px);

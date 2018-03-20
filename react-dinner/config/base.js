@@ -43,7 +43,10 @@ const scssLoader = cssLoader.concat({
 });
 
 module.exports = {
-  entry: path.resolve(__dirname, '../src/index.js'),
+  entry: [
+    'babel-polyfill',
+    path.resolve(__dirname, '../src/index.js')
+  ],
   output: {
     publicPath: '/dist',
     path: path.resolve(__dirname, '../dist'),

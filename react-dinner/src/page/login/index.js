@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
+import { connect } from 'react-redux';
 
 import Header from '../../components/Header/';
 import Footer from '../../components/Footer/';
@@ -9,13 +10,28 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
 
-    console.log(props.match.url + ', ' + props.match.path);
+    console.log(props);
 
-    this.state = {};
+    this.state = {
+      username: '12',
+      password: ''
+    };
+  }
+
+  handleUserNameChange = (event) => {
+    this.setState({
+      username: event.target.value
+    });
+  }
+
+  handlePasswordChange = (event) => {
+    this.setState({
+      password: event.target.value
+    });
   }
 
   handleLogin = () => {
-    this.props.history.push('/')
+    this.props.login();
   }
 
 	render () {
@@ -25,10 +41,10 @@ class Login extends React.Component {
 				<div className={styles.main}>
 					<form>
 						<div className={styles.row}>
-							<input type="text" placeholder="请输入账号" />
+							<input type="text" placeholder="请输入账号" value={this.state.username} onChange={this.handleUserNameChange} />
 						</div>
 						<div className={styles.row}>
-							<input type="password" placeholder="请输入密码" />
+							<input type="password" placeholder="请输入密码" onChange={this.handlePasswordChange} value={this.state.password} />
 						</div>
 
 						<button className={classnames(styles.loginBtn, 'btn-primary')} onClick={this.handleLogin}>登录</button>
@@ -40,4 +56,17 @@ class Login extends React.Component {
 	}
 };
 
-export default Login;
+const mapStateToProps =(state) => ({
+  username: state.username,
+  password: state.password
+});
+
+function mapDispatchToProps(dispatch) {
+  return {
+    login : function() {
+      return dispatch({type: 'USER_LOGIN'});
+    }
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
