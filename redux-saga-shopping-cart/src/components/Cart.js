@@ -1,40 +1,75 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import CartItem from './CartItem';
-import { getCartProducts } from '../reducers';
-import { removeFromCart } from '../actions';
+import { getCartProducts, getTotal } from '../reducers';
+import { removeFromCart, checkout } from '../actions';
+import Thead from './Thead';
 
 class Cart extends Component {
 	render() {
-		const { products, removeFromCart } = this.props;
+		const { products, removeFromCart, total, checkout, checkoutPending } = this.props;
+		const hasProducts = products.length;
+		const checkoutAllowed = hasProducts && !checkoutPending;
 
-		return(
-			<div>
-				<h3>Cart</h3>
-				<p>Please add some products to cart.</p>
-				{products.map(product => {
-					const { id, title, price, quantity } = product;
+		const content = 
+			products.map(product => {
+				const { id, title, price, quantity } = product;
+				return (
 					<CartItem
 						key={id}
 						title={title}
 						price={price}
 						quantity={quantity}
 						onRemove={() => removeFromCart(product.id)} />
-				})}
-				<button>checkout</button>
+				);
+			});
+
+		return(
+			<div>
+				<h3>Cart</h3>
+				{
+					hasProducts ? 
+						<table>
+							<Thead />
+							<tbody>
+								{content}
+							</tbody>
+						</table> : <p>Please add some products to cart.</p>
+				}
+				<p style={{ marginTop: 10 }}>Total: {total}</p>
+				<div style={{ marginTop: 10 }}>
+					<button onClick={checkout} disabled={checkoutAllowed ? '' : 'disabled'}>checkout</button>
+				</div>
 			</div>
 		);
 	}
 }
 
+Cart.propTypes = {
+  // data
+  products: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      quantity: PropTypes.number.isRequired,
+    }),
+  ).isRequired,
+  total: PropTypes.string,
+  //error: PropTypes.string,
+  checkoutPending: PropTypes.bool,
+
+  // actions
+  checkout: PropTypes.func.isRequired,
+  removeFromCart: PropTypes.func.isRequired,
+}
+
+
 function mapStateToProps(state) {
 	return {
-		products: getCartProducts(state)
+		products: getCartProducts(state),
+		total: getTotal(state)
 	}
 }
 
-function mapDispatchToProps() {
-	return { removeFromCart };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default connect(mapStateToProps, { removeFromCart, checkout })(Cart);

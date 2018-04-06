@@ -1,12 +1,19 @@
-import React, { Component, PropTypes } from 'react';
-
-import Product from './Product';
+import React, { Component, PropTypes } from 'react'
+import Product from './Product'
 
 export default class CartItem extends Component {
-	render() {
-		const { title, price, quantity, onRemove } = this.props;
-		return(
-			<Product title={title} price={price} quantity={quantity} onClick={onRemove} />
-		);
-	}
+  render() {
+    const { price, quantity, title, onRemove } = this.props
+
+    return (
+      <Product price={price} inventory={quantity} title={title} action={<button onClick={onRemove}>{' X '}</button>} />
+    )
+  }
+}
+
+CartItem.propTypes = {
+  price: PropTypes.number,
+  quantity: PropTypes.number,
+  title: PropTypes.string,
+  onRemove: PropTypes.func.isRequired,
 }

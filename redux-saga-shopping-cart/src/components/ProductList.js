@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import ProductItem from './ProductItem';
 import { GET_ALL_PRODUCTS, addToCart } from '../actions';
 import { getVisibleProducts } from '../reducers/products';
+import Thead from './Thead';
 
 class ProductList extends Component {
 	render() {
@@ -11,14 +12,7 @@ class ProductList extends Component {
 			<div>
         <h3>Products</h3>
         <table>
-					<thead>
-						<tr>
-							<th width="150">名称</th>
-							<th width="50">价格</th>
-							<th width="50">数量</th>
-							<th width="80">操作</th>
-						</tr>
-					</thead>
+					<Thead />
 					<tbody>
 						{products.map(product => (
 							<ProductItem
@@ -53,7 +47,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-	return { addToCart };
+	return { addToCart: (...args) => dispatch(addToCart(...args)) };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductList);

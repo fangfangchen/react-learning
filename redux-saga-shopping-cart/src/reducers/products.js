@@ -40,6 +40,7 @@ function byId(state = {}, action) {
   }
 }
 
+
 function visibleIds(state = [], action) {
   switch (action.type) {
     case RECEIVE_PRODUCTS:

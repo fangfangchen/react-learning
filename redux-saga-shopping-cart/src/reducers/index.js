@@ -1,7 +1,11 @@
 import { combineReducers } from 'redux';
 import products, { getProduct } from './products';
-import cart from './cart';
+import cart, { getAddedIds, getQuantity } from './cart';
 import { ADD_TO_CART } from '../actions';
+
+export function getCart(state) {
+	return state.cart;
+}
 
 const shoppingCart = combineReducers({
 	products,
@@ -9,8 +13,15 @@ const shoppingCart = combineReducers({
 });
 
 export function getCartProducts(state) {
-	console.log(state);
-	return [];
+	return getAddedIds(state.cart).map(id => ({
+		...getProduct(state.products, id),
+		quantity: getQuantity(state.cart, id)
+	}));
+}
+
+export function getTotal(state) {
+	return getAddedIds(state.cart).reduce((total, id) => 
+		(total + getProduct(state.products, id).price * getQuantity(state.cart, id)), 0).toFixed(2);
 }
 
 export default function rootReducer(state, action) {

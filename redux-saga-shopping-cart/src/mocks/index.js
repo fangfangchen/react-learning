@@ -24,3 +24,9 @@ Mock.mock(/\/products/, 'get', {
 	  },
 	]
 });
+
+Mock.mock(/\/buy/, 'post', {
+	code: 0,
+	message: 'success',
+	data: []
+});

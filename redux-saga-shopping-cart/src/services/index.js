@@ -12,5 +12,14 @@ export const api = {
 				}
 			})
 			.catch(error => console.log(error));
+	},
+	buyProducts(data) {
+		console.log(data)
+		return fetch('/buy', { method: 'POST', body: JSON.stringify(data) })
+			.then(response => response.json())
+			.then(json => {
+				return json.data;
+			})
+			.catch(error => console.log(error));
 	}
 };
