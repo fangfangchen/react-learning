@@ -1,6 +1,6 @@
 class homeService {
   getMenuList = (username, password) => {
-    fetch(`${window.location.origin}${data/menuLists.json}`)
+    fetch('/home')
       .then(result => console.log(result))
       .catch(error => console.log(error));
   }

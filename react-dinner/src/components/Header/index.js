@@ -6,7 +6,7 @@ class Footer extends PureComponent {
 	render () {
 		return(
 			<div className={styles.header}>
-				<p>
+				<p onClick={e => console.log(e)}>
           <a href="#/">MEETYOU DINNER</a>
         </p>
 			</div>

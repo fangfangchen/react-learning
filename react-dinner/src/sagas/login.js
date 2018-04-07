@@ -1,21 +1,28 @@
-import { call, put, select , take} from 'redux-saga/effects';
-import loginService from '../services/loginService';
+//import { takeLatest } from 'redux-saga';
+import { call, put, select, take, all, fork } from 'redux-saga/effects';
+import { loginService } from '../services/loginService';
+import * as actions from '../actions';
+import { getLoginInfo } from '../reducers/login';
 
-export function* login() {
-  console.log('------login saga------');
-  console.log({...arguments});
-  const loginAccount = yield select((state) => state);
-  console.log(loginAccount);
+function* login() {
   try {
-    const userLogin = yield call(loginService.userLogin, username, password);
-    yield put({
-      type: 'IS_LOGIN',
-      payload: userLogin
-    });
-  } catch(error) {
-    yield put({
-      type: 'IS_ERROR',
-      error
-    });
+    const loginInfo = yield select(getLoginInfo);
+    const data = yield call(loginService.userLogin, loginInfo.username, loginInfo.password);
+    yield put(actions.loginSuccess(data));
+  } catch (error) {
+    yield put(actions.loginFailure(error));
   }
+}
+
+function* watchLogin() {
+  while (true) {
+    yield take(actions.LOGIN_REQUEST);
+    yield call(login);
+  }
+}
+
+export default function* loginRoot() {
+  yield all([
+    fork(watchLogin)
+  ]);
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { HashRouter as Router, Route, Switch, Link, Redirect } from 'react-router-dom';
 
+import sagas from './sagas';
 import configureStore from './store/configureStore';
 import App from './App';
 import Login from './page/login';
@@ -9,6 +10,7 @@ import AuthorizedRoute from './AuthorizedRoute';
 import PrimaryLayout from './page/auth/PrimaryLayout';
 
 const store = configureStore();
+store.run(sagas);
 
 class Root extends React.Component {
   render() {

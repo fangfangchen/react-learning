@@ -22,7 +22,9 @@ $rem-baseline: 100px;
   }
 
 	html, body, #root {
+    max-width: 750px;
 		height: 100%;
+    margin: 0 auto;
     font-size: 10px;
     box-sizing: border-box;
 	}

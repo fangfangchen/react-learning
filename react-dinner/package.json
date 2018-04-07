@@ -9,6 +9,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "es6-promise": "^4.2.4",
+    "isomorphic-fetch": "^2.2.1",
     "normalize.css": "^8.0.0",
     "react": "^15.6.2",
     "react-dom": "^15.6.2",
@@ -34,6 +36,7 @@
     "eslint-config-airbnb": "^16.1.0",
     "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^1.1.11",
+    "mockjs": "^1.0.1-beta3",
     "node-sass": "^4.7.2",
     "postcss-loader": "^2.1.1",
     "postcss-write-svg": "^3.0.1",
@@ -52,7 +55,8 @@
     "webpack",
     "webpack-dev-server",
     "postcss",
-    "postcss-write-svg"
+    "postcss-write-svg",
+    "mock"
   ],
   "author": "Chan",
   "license": "ISC"

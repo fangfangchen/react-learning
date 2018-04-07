@@ -1,12 +1,10 @@
-import { takeLatest } from 'redux-saga';
-import { take } from 'redux-saga/effects';
-
-import { login } from './login';
+import { all } from 'redux-saga/effects';
+import login from './login';
 
 function* rootSaga() {
-  yield [
-    takeLatest('USER_LOGIN', login)
-  ];
+  yield all([
+    login()
+  ]);
 }
 
 export default rootSaga;

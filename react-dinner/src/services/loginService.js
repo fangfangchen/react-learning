@@ -1,21 +1,14 @@
-class loginService {
-  userLogin = (username, password) => {
-    console.log('-login service-------');
-    console.log(username, password);
+const USERNAME = 'admin';
+const PASSWORD = 'a123456';
+
+export const loginService = {
+  userLogin(username, password) {
     return new Promise((resolve, reject) => {
-      if (username === 'admin' && password === '123456') {
-        resolve({
-          code: 0,
-          message: 'login success'
-        });
+      if (username === USERNAME && password === PASSWORD) {
+        resolve(1); // '登录成功'
       } else {
-        reject({
-          code: 1,
-          message: 'login faild'
-        });
+        reject(0); // '登录失败'
       }
     });
   }
-}
-
-export default new loginService();
+};
