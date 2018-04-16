@@ -30,8 +30,8 @@ $rem-baseline: 100px;
     ul {
       li {
         position: relative;
-        height: rem(44px);
         line-height: rem(44px);
+        padding: rem(10px 0);
         display: flex;
         justify-content: space-between;
         font-size: 14px;
@@ -55,6 +55,7 @@ $rem-baseline: 100px;
 
             img {
               width: 100%;
+              float: left;
             }
           }
         }

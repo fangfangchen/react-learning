@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { GET_MENU_LIST_REQUEST, GET_MENU_LIST_SUCCESS, GET_MENU_LIST_FAILURE } from '../actions/home';
+import { GET_MENU_LIST_REQUEST, GET_MENU_LIST_SUCCESS, GET_MENU_LIST_FAILURE, ADD_TO_CART, MINUS_FROM_CART } from '../actions/home';
 
 function lists(state = [], action) {
   switch (action.type) {
@@ -14,6 +14,25 @@ function lists(state = [], action) {
   }
 }
 
+function orderList(state = {}, action) {
+  const { type, id } = action;
+  switch (type) {
+    case ADD_TO_CART:
+      return {
+        ...state,
+        [id]: (state[id] || 0) + 1
+      };
+    case MINUS_FROM_CART:
+      return {
+        ...state,
+        [id]: (state[id] || 0) - 1
+      };
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
-  lists
+  lists,
+  orderList
 });

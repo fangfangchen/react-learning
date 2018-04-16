@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import CartButton from '../../components/CartButton';
 import styles from './index.scss';
-import { order, cancel } from '../../actions/home';
+import * as actions from '../../actions/home';
 
 class Home extends React.Component {
 
@@ -14,7 +14,7 @@ class Home extends React.Component {
   }
 
 	render() {
-    const { lists, order, cancel } = this.props;
+    const { lists, add, minus, order, cancel } = this.props;
 
 		return (
 			<div className={styles.homeWrapper}>
@@ -30,7 +30,7 @@ class Home extends React.Component {
                   <div className={styles.menuName}>{list.name}</div>
                 </div>
                 <div className={styles.menuOperate}>
-                  <CartButton />
+                  <CartButton add={() => add(list.id)} minus={() => minus(list.id)} value={list.number || 0} />
                 </div>
               </li>
             })}
@@ -47,16 +47,29 @@ class Home extends React.Component {
 
 
 function mapStateToProps(state) {
+  const orderList = state.home.orderList;
+  const lists = state.home.lists;
   return {
-    lists: state.home.lists
+    lists: lists.map(list => {
+      const curOrder = orderList[list.id]
+      if (curOrder) {
+        return {
+          ...list,
+          number: curOrder
+        };
+      }
+      return list;
+    })
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
+    add: (...args) => dispatch(actions.add(...args)),
+    minus: (...args) => dispatch(actions.minus(...args)),
     order: (...args) => dispatch(actions.order(...args)),
     cancel: (...args) => dispatch(actions.cancel(...args))
   };
 }
 
-export default connect(mapStateToProps, {})(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
