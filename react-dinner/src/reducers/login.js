@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, USERNAME_CHANGE, PASSWORD_CHANGE } from '../actions';
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, USERNAME_CHANGE, PASSWORD_CHANGE } from '../actions/login';
 
 export function getLoginInfo(state) {
   return state.login;

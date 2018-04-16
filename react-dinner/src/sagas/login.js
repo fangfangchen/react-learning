@@ -1,7 +1,7 @@
 //import { takeLatest } from 'redux-saga';
 import { call, put, select, take, all, fork } from 'redux-saga/effects';
 import { loginService } from '../services/loginService';
-import * as actions from '../actions';
+import * as actions from '../actions/login';
 import { getLoginInfo } from '../reducers/login';
 
 function* login() {

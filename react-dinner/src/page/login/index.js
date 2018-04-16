@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import Header from '../../components/Header/';
 import Footer from '../../components/Footer/';
-import * as actions from '../../actions';
+import * as actions from '../../actions/login';
 import styles from './index.scss';
 
 class Login extends Component {

@@ -26,7 +26,7 @@ const cssLoader = [
           postcssWriteSvg({
             utf8: true
           })
-        ],
+        ]
       }
     }
   }
