@@ -1,7 +1,5 @@
-var webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const postcssWriteSvg = require('postcss-write-svg');
 
@@ -17,7 +15,7 @@ const cssLoader = [
     loader: 'postcss-loader',
     options: {
       ident: 'postcss',
-      plugins: function () {
+      plugins: function() {
         return [
           autoprefixer({
             browsers: [
@@ -28,7 +26,7 @@ const cssLoader = [
           postcssWriteSvg({
             utf8: true
           })
-        ]
+        ],
       }
     }
   }
