@@ -8,6 +8,7 @@ import App from './App';
 import Login from './page/login';
 import AuthorizedRoute from './AuthorizedRoute';
 import PrimaryLayout from './page/auth/PrimaryLayout';
+import './mocks';
 
 const store = configureStore();
 store.run(sagas);

@@ -48,6 +48,15 @@ $rem-baseline: 100px;
 
         .menu-info {
           display: flex;
+
+          .menu-img {
+            width: rem(60px);
+            margin-right: rem(10px);
+
+            img {
+              width: 100%;
+            }
+          }
         }
       }
     }
