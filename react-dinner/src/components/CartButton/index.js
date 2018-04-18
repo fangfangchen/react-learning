@@ -9,7 +9,7 @@ class CartButton extends PureComponent {
     return (
       <div className={styles.cart}>
         <button className={styles.cartBtn} onClick={minus} disabled={value <= 0 ? 'disabled' : ''}>-</button>
-        <input type="text" value={value} />
+        <input type="text" value={value} disabled="disabled" />
         <button className={styles.cartBtn} onClick={add} disabled={value >= 2 ? 'disabled' : ''}>+</button>
       </div>
     );

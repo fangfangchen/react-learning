@@ -7,38 +7,44 @@ import CartButton from '../../components/CartButton';
 import styles from './index.scss';
 import * as actions from '../../actions/home';
 
-class Home extends React.Component {
+function ItemList(props) {
+  return(
+    <ul>
+      {props.lists.map(list => {
+        return <li key={list.id}>
+          <div className={styles.menuInfo}>
+            <div className={styles.menuImg}>
+              <img src={list.image} />
+            </div>
+            <div className={styles.menuName}>{list.name}</div>
+          </div>
+          <div className={styles.menuOperate}>
+            <CartButton add={() => props.add(list.id)} minus={() => props.minus(list.id)} value={list.number || 0} />
+          </div>
+        </li>
+      })}
+    </ul>
+  );
+}
 
+
+class Home extends React.Component {
   onJumpToOrderList = () => {
     this.props.history.push('/user/1');
   }
 
-	render() {
-    const { lists, add, minus, order, cancel } = this.props;
+  render() {
+    const { lists, hasOrdered, add, minus, order, cancel } = this.props;
 
 		return (
 			<div className={styles.homeWrapper}>
         <div className={styles.orderList}><a href="#/user/1">查看订单 >></a></div>
 				<div className={classnames(styles.menu, 'one-pixel-border')}>
-					<ul>
-            {lists.map(list => {
-              return <li key={list.id}>
-                <div className={styles.menuInfo}>
-                  <div className={styles.menuImg}>
-                    <img src={list.image} />
-                  </div>
-                  <div className={styles.menuName}>{list.name}</div>
-                </div>
-                <div className={styles.menuOperate}>
-                  <CartButton add={() => add(list.id)} minus={() => minus(list.id)} value={list.number || 0} />
-                </div>
-              </li>
-            })}
-          </ul>
+					<ItemList lists={lists} add={add} minus={minus} />
         </div>
         <div className={styles.operation}>
           <button className="btn btn-sm btn-default" onClick={cancel}>取消</button>
-          <button className="btn btn-sm btn-primary" onClick={order}>预定</button>
+          <button className={classnames(hasOrdered ? '' : 'btn-disabled', "btn btn-sm btn-primary")} onClick={order} disabled={hasOrdered ? '' : 'disabled'}>预定</button>
         </div>
 			</div>
 		);
@@ -47,8 +53,7 @@ class Home extends React.Component {
 
 
 function mapStateToProps(state) {
-  const orderList = state.home.orderList;
-  const lists = state.home.lists;
+  const { orderList, lists } = state.home;
   return {
     lists: lists.map(list => {
       const curOrder = orderList[list.id]
@@ -59,7 +64,8 @@ function mapStateToProps(state) {
         };
       }
       return list;
-    })
+    }),
+    hasOrdered: !!Object.keys(orderList).length
   }
 }
 

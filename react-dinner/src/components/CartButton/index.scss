@@ -17,5 +17,10 @@ $rem-baseline: 100px;
     text-align: center;
     vertical-align: middle;
     box-shadow: none;
+
+    &[disabled] {
+      background-color: #fff;
+      opacity: 1;
+    }
   }
 }

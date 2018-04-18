@@ -1,5 +1,9 @@
 import { combineReducers } from 'redux';
-import { GET_MENU_LIST_REQUEST, GET_MENU_LIST_SUCCESS, GET_MENU_LIST_FAILURE, ADD_TO_CART, MINUS_FROM_CART } from '../actions/home';
+import { GET_MENU_LIST_REQUEST, GET_MENU_LIST_SUCCESS, GET_MENU_LIST_FAILURE, ADD_TO_CART, MINUS_FROM_CART, ORDER_DINNER_SUCCESS, ORDER_DINNER_FAILURE } from '../actions/home';
+
+export const getOrderList = (state) => {
+  return state.home.orderList;
+};
 
 function lists(state = [], action) {
   switch (action.type) {
@@ -26,6 +30,25 @@ function orderList(state = {}, action) {
       return {
         ...state,
         [id]: (state[id] || 0) - 1
+      };
+    case ORDER_DINNER_SUCCESS:
+      return {};
+    default:
+      return state;
+  }
+}
+
+function orderDinner(state = {}, action) {
+  switch (action.type) {
+    case ORDER_DINNER_FAILURE:
+      return {
+        ...state,
+        ...action.data
+      };
+    case ORDER_DINNER_SUCCESS:
+      return {
+        ...state,
+        ...action.data
       };
     default:
       return state;

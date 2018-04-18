@@ -41,3 +41,25 @@ Mock.mock(/\/menus/, 'get', {
     }
   ]
 });
+
+
+Mock.mock(/\/order-list/, 'get', {
+  code: 0,
+  message: 'success',
+  data: [
+    {
+      id: 1,
+      number: 1
+    },
+    {
+      id: 2,
+      number: 2
+    }
+  ]
+});
+
+Mock.mock(/\/order/, 'post', {
+  code: 0,
+  message: '预定晚餐成功~',
+  data: []
+});
